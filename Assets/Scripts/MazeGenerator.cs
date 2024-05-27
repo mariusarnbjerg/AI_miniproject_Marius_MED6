@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.AI;
-using Unity.AI.Navigation;
+using Unity.AI.Navigation; //Required to to handle the NavMeshSurface 
 
 public class MazeGenerator : MonoBehaviour
 {
@@ -92,7 +92,7 @@ public class MazeGenerator : MonoBehaviour
             //The navmesh should only be generated once all cells have been checked
             if (cellsChecked == mazeWidth * mazeDepth) //The amount of cells is calculated by mazeWidth x mazeDepth
             {
-                navMeshSurface.BuildNavMesh();
+                navMeshSurface.BuildNavMesh(); //Bake mesh
 
                 InstantiateObjectOnNavMesh(target.gameObject);
                 yield return new WaitForSeconds(2);
@@ -109,7 +109,7 @@ public class MazeGenerator : MonoBehaviour
         return unvisitedCells.OrderBy(_ => Random.Range(1, 10)).FirstOrDefault();
     }
 
-    private IEnumerable<MazeCell> GetUnvisitedCells(MazeCell currentCell)
+    private IEnumerable<MazeCell> GetUnvisitedCells(MazeCell currentCell) //Returns a list of unvisited neighbors to the currentCell
     {
         int x = (int)currentCell.transform.position.x;
         int z = (int)currentCell.transform.position.z;
